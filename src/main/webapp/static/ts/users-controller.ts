@@ -2,7 +2,7 @@
 /// <reference path="angularjs-demo-service.ts" />
 
 module demo {
-  interface IUsersScope extends ng.IScope {
+  interface IUsersScope extends angular.IScope {
     users: IPerson[];
     newUser: IPerson;
     addUser: () => void;

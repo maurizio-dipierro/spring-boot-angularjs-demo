@@ -9,7 +9,7 @@ declare module "angular-route" {
 ///////////////////////////////////////////////////////////////////////////////
 // ngRoute module (angular-route.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare namespace ng.route {
+declare namespace angular.route {
 
     ///////////////////////////////////////////////////////////////////////////
     // RouteService
@@ -33,20 +33,20 @@ declare namespace ng.route {
     interface ICurrentRoute extends IRoute {
         locals: {
             [index: string]: any;
-            $scope: IScope;
+            $scope: angular.IScope;
             $template: string;
         };
 
         params: any;
         pathParams: any;
-        scope: IScope;
+        scope: angular.IScope;
     }
 
     ///////////////////////////////////////////////////////////////////////////
     // RouteProvider
     // see http://docs.angularjs.org/api/ngRoute/provider/$routeProvider
     ///////////////////////////////////////////////////////////////////////////
-    interface IRouteProvider extends IServiceProvider {
+    interface IRouteProvider extends angular.IServiceProvider {
         when(path: string, route: IRoute): IRouteProvider;
         otherwise(params: IRoute): IRouteProvider;
     }
@@ -75,6 +75,6 @@ declare namespace ng.route {
 
 declare namespace angular {
     interface IModule {
-        config(fn: (routeProvider: ng.route.IRouteProvider, ...injectables: any[]) => any): IModule;
+        config(fn: (routeProvider: angular.route.IRouteProvider, ...injectables: any[]) => any): IModule;
     }
 }

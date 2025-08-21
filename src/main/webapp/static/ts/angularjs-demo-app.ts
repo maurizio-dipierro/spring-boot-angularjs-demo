@@ -10,7 +10,7 @@
 
 var demoApp = angular.module('demo', ['ngRoute']);
 
-demoApp.config(['$routeProvider', function($routeProvider: ng.route.IRouteProvider) {
+demoApp.config(['$routeProvider', function($routeProvider: angular.route.IRouteProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'views/home.html',
