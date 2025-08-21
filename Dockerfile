@@ -8,7 +8,7 @@ COPY pom.xml ./
 RUN mvn -B -DskipTests dependency:go-offline
 
 # Bring the rest of the source
-COPY src ./src
+COPY src/main/java ./src/main/java
 COPY src/main/webapp/static ./src/main/webapp/static
 
 # Node & tooling needed by the Grunt/Bower flow that Maven triggers
