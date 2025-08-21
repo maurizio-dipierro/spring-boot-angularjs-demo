@@ -16,9 +16,9 @@ COPY src/main/webapp/static ./src/main/webapp/static
 RUN apt-get update && \
     apt-get install -y curl gnupg && \
     curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && \
-    apt-get install -y nodejs git && \
-    npm install -g grunt-cli bower && \
-    mvn -B -DskipTests package
+    apt-get install -y nodejs git
+RUN npm install -g grunt-cli bower
+RUN mvn -B -DskipTests package
 
 # ---- Runtime stage ----
 FROM eclipse-temurin:8-jre
