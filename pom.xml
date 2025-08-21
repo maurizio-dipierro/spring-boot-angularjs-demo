@@ -64,6 +64,9 @@
           <gruntOptions>
             <gruntOption>--verbose</gruntOption>
           </gruntOptions>
+          <bowerOptions>
+            <bowerOption>--allow-root</bowerOption>
+          </bowerOptions>
         </configuration>
         <executions>
           <execution>
