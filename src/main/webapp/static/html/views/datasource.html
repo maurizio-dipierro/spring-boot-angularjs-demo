@@ -1,0 +1,249 @@
+<div class="datasource-page">
+  <!-- Page Header -->
+  <div class="page-header d-flex justify-content-between align-items-center mb-4">
+    <h1>Datasource</h1>
+    <button class="btn btn-success" data-ng-click="openCreateModal()">
+      <i class="fas fa-bolt"></i> Crea Nuovo Datasource
+    </button>
+  </div>
+
+  <!-- Search and Filter -->
+  <div class="search-section mb-3">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Nome/Id" 
+                 data-ng-model="searchQuery" data-ng-change="searchDatasources()">
+          <button class="btn btn-outline-secondary" type="button">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-outline-primary">
+          <i class="fas fa-filter"></i> Filtra
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div data-ng-if="isLoading" class="text-center py-4">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Caricamento...</span>
+    </div>
+  </div>
+
+  <!-- Message Alert -->
+  <div data-ng-if="message" class="alert" 
+       data-ng-class="{'alert-success': messageType === 'success', 'alert-danger': messageType === 'error'}" 
+       role="alert">
+    {{message}}
+  </div>
+
+  <!-- Datasources Table -->
+  <div class="table-responsive" data-ng-if="!isLoading">
+    <table class="table table-hover">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">NomeSorgente</th>
+          <th scope="col">NomeApp</th>
+          <th scope="col">Datasource Properties</th>
+          <th scope="col">Applicazione</th>
+          <th scope="col">Azioni</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="datasource in datasources track by datasource.id">
+          <td>
+            <span class="text-success fw-bold">{{datasource.id}}</span>
+          </td>
+          <td>{{datasource.sourceName}}</td>
+          <td>{{datasource.appName}}</td>
+          <td>{{datasource.property}}</td>
+          <td>{{datasource.application}}</td>
+          <td>
+            <button class="btn btn-sm btn-success me-2" data-ng-click="openEditModal(datasource)">
+              <i class="fas fa-edit"></i> Modifica
+            </button>
+            <button class="btn btn-sm btn-danger" data-ng-click="confirmDelete(datasource)">
+              <i class="fas fa-trash"></i> Elimina
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <!-- Empty State -->
+    <div data-ng-if="datasources.length === 0 && !isLoading" class="text-center py-5">
+      <p class="text-muted">Nessun datasource trovato.</p>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <nav aria-label="Navigazione pagine" data-ng-if="totalItems > pageSize">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" data-ng-class="{disabled: currentPage <= 1}">
+        <a class="page-link" href="#" data-ng-click="currentPage > 1 && (currentPage = currentPage - 1) && loadDatasources()">Precedente</a>
+      </li>
+      <li class="page-item active">
+        <span class="page-link">{{currentPage}} di {{Math.ceil(totalItems / pageSize)}}</span>
+      </li>
+      <li class="page-item" data-ng-class="{disabled: currentPage >= Math.ceil(totalItems / pageSize)}">
+        <a class="page-link" href="#" data-ng-click="currentPage < Math.ceil(totalItems / pageSize) && (currentPage = currentPage + 1) && loadDatasources()">Successiva</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Create/Edit Modal -->
+  <div class="modal" data-ng-class="{show: showModal}" data-ng-style="{'display': showModal ? 'block' : 'none'}" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Crea o modifica Datasource</h5>
+          <button type="button" class="btn-close" data-ng-click="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form name="datasourceForm" novalidate>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="sourceName" class="form-label">NomeSorgente *</label>
+                  <input type="text" class="form-control" id="sourceName" name="sourceName"
+                         data-ng-model="currentDatasource.sourceName" 
+                         data-ng-pattern="/^[A-Z0-9_]+$/" 
+                         style="text-transform: uppercase"
+                         required>
+                  <div class="form-text">Solo lettere maiuscole, numeri e underscore</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="appName" class="form-label">NomeApp *</label>
+                  <input type="text" class="form-control" id="appName" name="appName"
+                         data-ng-model="currentDatasource.appName" 
+                         maxlength="100"
+                         required>
+                </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="property" class="form-label">Datasource Properties *</label>
+                  <select class="form-select" id="property" name="property"
+                          data-ng-model="currentDatasource.property" 
+                          required>
+                    <option value="">Seleziona...</option>
+                    <option value="A35CDEV">A35CDEV</option>
+                    <option value="A35CDEV_CLOUD">A35CDEV_CLOUD</option>
+                    <option value="MATERIAL19">MATERIAL19</option>
+                    <option value="PROD_ENV">PROD_ENV</option>
+                    <option value="TEST_ENV">TEST_ENV</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="application" class="form-label">Applicazione *</label>
+                  <select class="form-select" id="application" name="application"
+                          data-ng-model="currentDatasource.application" 
+                          required>
+                    <option value="">Seleziona...</option>
+                    <option value="A35CDEV">A35CDEV</option>
+                    <option value="Material">Material</option>
+                    <option value="Production">Production</option>
+                    <option value="Testing">Testing</option>
+                    <option value="Development">Development</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Modal Message -->
+            <div data-ng-if="message" class="alert" 
+                 data-ng-class="{'alert-success': messageType === 'success', 'alert-danger': messageType === 'error'}" 
+                 role="alert">
+              {{message}}
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark me-2" data-ng-click="testConnection()" 
+                  data-ng-disabled="isLoading || !currentDatasource.sourceName || !currentDatasource.appName || !currentDatasource.property || !currentDatasource.application">
+            <span data-ng-if="isLoading" class="spinner-border spinner-border-sm me-1"></span>
+            Test
+          </button>
+          <button type="button" class="btn btn-secondary" data-ng-click="closeModal()">Chiudi</button>
+          <button type="button" class="btn btn-success" data-ng-click="saveDatasource()" 
+                  data-ng-disabled="isLoading || !currentDatasource.sourceName || !currentDatasource.appName || !currentDatasource.property || !currentDatasource.application">
+            <span data-ng-if="isLoading" class="spinner-border spinner-border-sm me-1"></span>
+            Salva
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal Backdrop -->
+  <div class="modal-backdrop fade" data-ng-class="{show: showModal}" data-ng-if="showModal"></div>
+
+  <!-- Test Result Dialog -->
+  <div class="modal" data-ng-class="{show: showTestDialog}" data-ng-style="{'display': showTestDialog ? 'block' : 'none'}" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <span data-ng-if="testResult.ok" class="text-success">
+              <i class="fas fa-check-circle fa-2x"></i>
+            </span>
+            <span data-ng-if="!testResult.ok" class="text-danger">
+              <i class="fas fa-times-circle fa-2x"></i>
+            </span>
+            Test Connessione
+          </h5>
+          <button type="button" class="btn-close" data-ng-click="showTestDialog = false"></button>
+        </div>
+        <div class="modal-body text-center">
+          <div data-ng-if="testResult.ok" class="text-success">
+            <h4>Data Source test success</h4>
+          </div>
+          <div data-ng-if="!testResult.ok" class="text-danger">
+            <h4>Test Fallito</h4>
+            <p>{{testResult.error}}</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-ng-click="showTestDialog = false">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Test Dialog Backdrop -->
+  <div class="modal-backdrop fade show" data-ng-if="showTestDialog"></div>
+
+  <!-- Delete Confirmation Dialog -->
+  <div class="modal" data-ng-class="{show: showDeleteConfirm}" data-ng-style="{'display': showDeleteConfirm ? 'block' : 'none'}" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Elimina Datasource</h5>
+          <button type="button" class="btn-close" data-ng-click="showDeleteConfirm = false"></button>
+        </div>
+        <div class="modal-body">
+          <p>Sei sicuro di voler eliminare "<strong>{{datasourceToDelete.sourceName}}</strong>"?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-ng-click="showDeleteConfirm = false">Annulla</button>
+          <button type="button" class="btn btn-danger" data-ng-click="deleteDatasource(datasourceToDelete)">Elimina</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Delete Dialog Backdrop -->
+  <div class="modal-backdrop fade show" data-ng-if="showDeleteConfirm"></div>
+</div>

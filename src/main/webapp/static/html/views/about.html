@@ -1,0 +1,25 @@
+<div class="about-page">
+  <h2>About This Application</h2>
+  <div class="app-info">
+    <h3>{{appInfo.name}}</h3>
+    <p><strong>Version:</strong> {{appInfo.version}}</p>
+    <p><strong>Description:</strong> {{appInfo.description}}</p>
+    
+    <h4>Technologies Used:</h4>
+    <ul>
+      <li data-ng-repeat="tech in appInfo.technologies">{{tech}}</li>
+    </ul>
+    
+    <div class="features">
+      <h4>Features:</h4>
+      <ul>
+        <li>Single Page Application with routing</li>
+        <li>TypeScript for type safety</li>
+        <li>RESTful API integration</li>
+        <li>Responsive design</li>
+        <li>Maven build system with Grunt</li>
+        <li>Docker containerization</li>
+      </ul>
+    </div>
+  </div>
+</div>

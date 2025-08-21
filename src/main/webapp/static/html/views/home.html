@@ -1,0 +1,13 @@
+<div class="home-page">
+  <h2>Welcome to the Demo</h2>
+  <p>This is the home page of our Spring Boot + AngularJS demo application.</p>
+  <p>Click the button to fetch a person from the backend...</p>
+  <div class="demo-section">
+    <button class="btn btn-primary" data-ng-click="fetchPerson()">Fetch Person</button>
+    <div data-ng-if="person" class="person-info">
+      <h3>Person Details:</h3>
+      <p><strong>First Name:</strong> {{person.firstName}}</p>
+      <p><strong>Last Name:</strong> {{person.lastName}}</p>
+    </div>
+  </div>
+</div>

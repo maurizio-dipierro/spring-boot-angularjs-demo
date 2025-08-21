@@ -2,14 +2,55 @@
 <html lang="en" data-ng-app="demo">
   <head>
     <meta charset="utf-8">
-    <title>Spring Boot + AngularJS demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Spring Boot + AngularJS Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="js/angularjs-demo-complete.min.js"></script>
+    <style>
+      .navbar-brand { font-weight: bold; }
+      .container { margin-top: 20px; }
+      .form-row { display: flex; gap: 15px; align-items: end; }
+      .form-group { flex: 1; margin-bottom: 15px; }
+      .alert { margin-top: 15px; }
+      .person-info, .app-info, .demo-section { margin-top: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 5px; }
+      .table { margin-top: 15px; }
+      .no-users { text-align: center; color: #6c757d; margin: 30px 0; }
+    </style>
   </head>
-  <body data-ng-controller="demo.DemoController">
-    <h1>Spring Boot + AngularJS demo</h1>
-    <p>Click the button to fetch the person...</p>
-    <p><button data-ng-click="fetchPerson()">Fetch person</button></p>
-    <p data-ng-if="person">First name: {{person.firstName}}<br>
-      Last name: {{person.lastName}}</p>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#/">Spring Boot + AngularJS Demo</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#/about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#/users">Users</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#/datasource">Datasource</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#/contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="container">
+      <div data-ng-view></div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

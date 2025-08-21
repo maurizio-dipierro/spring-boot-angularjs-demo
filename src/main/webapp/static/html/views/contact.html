@@ -1,0 +1,34 @@
+<div class="contact-page">
+  <h2>Contact Us</h2>
+  <p>Have questions or feedback? We'd love to hear from you!</p>
+  
+  <div class="contact-form">
+    <form name="contactForm" data-ng-submit="submitForm()" novalidate>
+      <div class="form-group">
+        <label for="name">Name *</label>
+        <input type="text" id="name" name="name" data-ng-model="contact.name" required class="form-control">
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email" data-ng-model="contact.email" required class="form-control">
+      </div>
+      
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" data-ng-model="contact.subject" class="form-control">
+      </div>
+      
+      <div class="form-group">
+        <label for="message">Message *</label>
+        <textarea id="message" name="message" data-ng-model="contact.message" required rows="5" class="form-control"></textarea>
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+    
+    <div data-ng-if="message" class="alert" data-ng-class="{'alert-success': message.indexOf('Thank you') !== -1, 'alert-danger': message.indexOf('Please') !== -1}">
+      {{message}}
+    </div>
+  </div>
+</div>
