@@ -1,7 +1,7 @@
 /// <reference path="../typings/angularjs/angular.d.ts" />
 
 module demo {
-  interface IAboutScope extends ng.IScope {
+  interface IAboutScope extends angular.IScope {
     appInfo: any;
   }
   

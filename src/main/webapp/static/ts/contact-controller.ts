@@ -1,7 +1,7 @@
 /// <reference path="../typings/angularjs/angular.d.ts" />
 
 module demo {
-  interface IContactScope extends ng.IScope {
+  interface IContactScope extends angular.IScope {
     contact: any;
     submitForm: () => void;
     message: string;

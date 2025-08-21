@@ -23,13 +23,13 @@ module demo {
   
   export class DatasourceService {
     static $inject = ['$http'];
-    private httpService: ng.IHttpService;
+    private httpService: angular.IHttpService;
 
-    constructor($http: ng.IHttpService) {
+    constructor($http: angular.IHttpService) {
       this.httpService = $http;
     }
 
-    getDatasources(page: number = 1, pageSize: number = 25, query: string = ''): ng.IPromise<IDatasourceListResponse> {
+    getDatasources(page: number = 1, pageSize: number = 25, query: string = ''): angular.IPromise<IDatasourceListResponse> {
       let url = `api/datasources?page=${page}&pageSize=${pageSize}`;
       if (query) {
         url += `&q=${encodeURIComponent(query)}`;
@@ -40,37 +40,37 @@ module demo {
       });
     }
     
-    createDatasource(datasource: IDatasource): ng.IPromise<IDatasource> {
+    createDatasource(datasource: IDatasource): angular.IPromise<IDatasource> {
       return this.httpService.post<IDatasource>('api/datasources', datasource).then((response) => {
         return response.data;
       });
     }
     
-    updateDatasource(datasource: IDatasource): ng.IPromise<IDatasource> {
+    updateDatasource(datasource: IDatasource): angular.IPromise<IDatasource> {
       return this.httpService.put<IDatasource>(`api/datasources/${datasource.id}`, datasource).then((response) => {
         return response.data;
       });
     }
     
-    deleteDatasource(datasourceId: number): ng.IPromise<void> {
+    deleteDatasource(datasourceId: number): angular.IPromise<void> {
       return this.httpService.delete<void>(`api/datasources/${datasourceId}`).then(() => {
         return;
       });
     }
     
-    testConnection(datasource: IDatasource): ng.IPromise<ITestResult> {
+    testConnection(datasource: IDatasource): angular.IPromise<ITestResult> {
       return this.httpService.post<ITestResult>('api/datasources/test', datasource).then((response) => {
         return response.data;
       });
     }
     
-    getPropertyOptions(): ng.IPromise<string[]> {
+    getPropertyOptions(): angular.IPromise<string[]> {
       return this.httpService.get<string[]>('api/datasources/properties').then((response) => {
         return response.data;
       });
     }
     
-    getApplicationOptions(): ng.IPromise<string[]> {
+    getApplicationOptions(): angular.IPromise<string[]> {
       return this.httpService.get<string[]>('api/datasources/applications').then((response) => {
         return response.data;
       });

@@ -16,37 +16,37 @@ module demo {
   
   export class DemoService {
     static $inject = ['$http'];
-    private httpService: ng.IHttpService;
+    private httpService: angular.IHttpService;
 
-    constructor($http: ng.IHttpService) {
+    constructor($http: angular.IHttpService) {
       this.httpService = $http;
     }
 
-    getPerson(): ng.IPromise<IPerson> {
+    getPerson(): angular.IPromise<IPerson> {
       return this.httpService.get<IPerson>('api/person').then((response) => {
         return response.data;
       });
     }
     
-    getUsers(): ng.IPromise<IUser[]> {
+    getUsers(): angular.IPromise<IUser[]> {
       return this.httpService.get<IUser[]>('api/users').then((response) => {
         return response.data;
       });
     }
     
-    addUser(user: IPerson): ng.IPromise<IUser> {
+    addUser(user: IPerson): angular.IPromise<IUser> {
       return this.httpService.post<IUser>('api/users', user).then((response) => {
         return response.data;
       });
     }
     
-    deleteUser(userId: number): ng.IPromise<void> {
+    deleteUser(userId: number): angular.IPromise<void> {
       return this.httpService.delete<void>('api/users/' + userId).then(() => {
         return;
       });
     }
     
-    getRandomPeople(): ng.IPromise<IPerson[]> {
+    getRandomPeople(): angular.IPromise<IPerson[]> {
       return this.httpService.get<IPerson[]>('api/people/random').then((response) => {
         return response.data;
       });

@@ -2,7 +2,7 @@
 /// <reference path="angularjs-demo-service.ts" />
 
 module demo {
-  interface IDemoScope extends ng.IScope {
+  interface IDemoScope extends angular.IScope {
     person: IPerson;
     fetchPerson: () => void;
   }

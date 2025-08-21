@@ -2,7 +2,7 @@
 /// <reference path="datasource-service.ts" />
 
 module demo {
-  interface IDatasourceScope extends ng.IScope {
+  interface IDatasourceScope extends angular.IScope {
     datasources: IDatasource[];
     searchQuery: string;
     currentPage: number;
