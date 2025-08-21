@@ -1,0 +1,9 @@
+target
+node_modules
+.bower-cache
+.bower-registry
+.bower-tmp
+.git
+.gitignore
+.idea
+.DS_Store
