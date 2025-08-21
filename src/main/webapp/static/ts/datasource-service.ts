@@ -2,7 +2,7 @@
 
 module demo {
   export interface IDatasource {
-    id: number | null;
+    id: number;
     sourceName: string;
     appName: string;
     property: string;

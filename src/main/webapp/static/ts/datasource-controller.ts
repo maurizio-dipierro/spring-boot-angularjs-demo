@@ -124,7 +124,7 @@ module demo {
         this.showMessage('Datasource salvato con successo', 'success');
       }).catch((error) => {
         this.scope.isLoading = false;
-        this.scope.message = error.data?.message || 'Errore durante il salvataggio';
+        this.scope.message = (error.data && error.data.message) || 'Errore durante il salvataggio';
         this.scope.messageType = 'error';
       });
     }
@@ -143,7 +143,7 @@ module demo {
         this.scope.showTestDialog = true;
       }).catch((error) => {
         this.scope.isLoading = false;
-        this.scope.testResult = { ok: false, error: error.data?.message || 'Test connessione fallito' };
+        this.scope.testResult = { ok: false, error: (error.data && error.data.message) || 'Test connessione fallito' };
         this.scope.showTestDialog = true;
       });
     }
@@ -163,7 +163,7 @@ module demo {
         this.showMessage('Datasource eliminato con successo', 'success');
       }).catch((error) => {
         this.scope.isLoading = false;
-        this.showMessage(error.data?.message || 'Errore durante l\'eliminazione', 'error');
+        this.showMessage((error.data && error.data.message) || 'Errore durante l\'eliminazione', 'error');
       });
     }
 
